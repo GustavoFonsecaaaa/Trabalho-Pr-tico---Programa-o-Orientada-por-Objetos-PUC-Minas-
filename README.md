@@ -14,7 +14,7 @@ O **Sistema de Central de Chamados (Helpdesk)** é uma solução desenvolvida so
 ## 👥 Integrantes do Grupo
 * Gustavo Venâncio Fonseca - Matrícula: 893058
 * Gabriel Lucas Souza de Oliveira - Matrícula: 892896
-* [Nome Completo do Integrante 3] - Matrícula: [Número]
+* Arthur Moreira Silva - Matrícula: 892226
 * [Nome Completo do Integrante 4] - Matrícula: [Número]
 * [Nome Completo do Integrante 5] - Matrícula: [Número]
 

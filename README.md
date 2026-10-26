@@ -15,8 +15,8 @@ O **Sistema de Central de Chamados (Helpdesk)** é uma solução desenvolvida so
 * Gustavo Venâncio Fonseca - Matrícula: 893058
 * Gabriel Lucas Souza de Oliveira - Matrícula: 892896
 * Arthur Moreira Silva - Matrícula: 892226
-* Thulio Funayama - Matrícula: 
-* Lucas Henrique Souza - Matrícula: 
+* Thulio Funayama - Matrícula: 891452
+* Lucas Henrique Souza - Matrícula: 865704
 
 ---
 

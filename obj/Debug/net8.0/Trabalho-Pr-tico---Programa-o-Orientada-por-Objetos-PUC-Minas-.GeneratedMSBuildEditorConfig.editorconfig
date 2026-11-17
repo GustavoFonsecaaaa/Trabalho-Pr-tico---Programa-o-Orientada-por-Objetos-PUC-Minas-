@@ -1,0 +1,13 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Trabalho_Pr_tico___Programa_o_Orientada_por_Objetos_PUC_Minas_
+build_property.ProjectDir = /home/gustavo/Trabalhos Faculdade/4 semestre/POO/Trabalho-Pr-tico---Programa-o-Orientada-por-Objetos-PUC-Minas-/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

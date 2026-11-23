@@ -1,12 +1,17 @@
-namespace Helpdesk.Classes;
-
-public class ValidacaoException : HelpdeskException
+namespace Helpdesk.Classes
 {
-    public string Campo { get; }
-
-    public ValidacaoException(string campo, string mensagem)
-        : base($"{campo}: {mensagem}")
+    public class ValidacaoException : HelpdeskException
     {
-        Campo = campo;
+        private string campo;
+
+        public ValidacaoException(string campo, string mensagem) : base(campo + ": " + mensagem)
+        {
+            this.campo = campo;
+        }
+
+        public string Campo
+        {
+            get { return campo; }
+        }
     }
 }

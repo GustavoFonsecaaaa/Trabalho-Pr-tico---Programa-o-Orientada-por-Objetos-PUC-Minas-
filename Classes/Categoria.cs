@@ -1,61 +1,103 @@
-namespace Helpdesk.Classes;
-
-public class Categoria
+namespace Helpdesk.Classes
 {
-    private string _nome = string.Empty;
-    private string _descricao = string.Empty;
-
-    public int Id { get; }
-
-    public string Nome
+    public class Categoria
     {
-        get => _nome;
-        set
+        private int id;
+        private string nome = "";
+        private string descricao = "";
+        private bool ativa = true;
+
+        public Categoria(int id, string nome, string descricao)
         {
-            string valor = (value ?? string.Empty).Trim();
-            if (valor.Length < 3 || valor.Length > 40)
-                throw new ValidacaoException("Nome da categoria", "deve ter entre 3 e 40 caracteres.");
-            _nome = valor;
+            if (id <= 0)
+            {
+                throw new ValidacaoException("Id", "deve ser maior que zero.");
+            }
+            this.id = id;
+            Nome = nome;
+            Descricao = descricao;
         }
-    }
 
-    public string Descricao
-    {
-        get => _descricao;
-        set
+        public int Id
         {
-            string valor = (value ?? string.Empty).Trim();
-            if (valor.Length > 200)
-                throw new ValidacaoException("Descricao da categoria", "deve ter no maximo 200 caracteres.");
-            _descricao = valor;
+            get { return id; }
         }
-    }
 
-    public bool Ativa { get; private set; } = true;
+        public string Nome
+        {
+            get { return nome; }
+            set
+            {
+                if (value == null)
+                {
+                    value = "";
+                }
+                value = value.Trim();
 
-    public Categoria(int id, string nome, string descricao = "")
-    {
-        if (id <= 0)
-            throw new ValidacaoException("Id", "deve ser maior que zero.");
-        Id = id;
-        Nome = nome;
-        Descricao = descricao;
-    }
+                if (value.Length < 3 || value.Length > 40)
+                {
+                    throw new ValidacaoException("Nome da categoria", "deve ter entre 3 e 40 caracteres.");
+                }
 
-    public void Ativar() => Ativa = true;
+                nome = value;
+            }
+        }
 
-    public void Desativar() => Ativa = false;
+        public string Descricao
+        {
+            get { return descricao; }
+            set
+            {
+                if (value == null)
+                {
+                    value = "";
+                }
+                value = value.Trim();
 
-    public void GarantirQueEstaAtiva()
-    {
-        if (!Ativa)
-            throw new HelpdeskException($"A categoria \"{Nome}\" esta desativada e nao aceita novos chamados.");
-    }
+                if (value.Length > 200)
+                {
+                    throw new ValidacaoException("Descricao da categoria", "deve ter no maximo 200 caracteres.");
+                }
 
-    public override string ToString()
-    {
-        string situacao = Ativa ? "" : " (desativada)";
-        string descricao = string.IsNullOrEmpty(Descricao) ? "" : $" - {Descricao}";
-        return $"[{Id}] {Nome}{situacao}{descricao}";
+                descricao = value;
+            }
+        }
+
+        public bool Ativa
+        {
+            get { return ativa; }
+        }
+
+        public void Ativar()
+        {
+            ativa = true;
+        }
+
+        public void Desativar()
+        {
+            ativa = false;
+        }
+
+        public void VerificarSeEstaAtiva()
+        {
+            if (!ativa)
+            {
+                throw new HelpdeskException("A categoria " + nome + " esta desativada e nao aceita novos chamados.");
+            }
+        }
+
+        public override string ToString()
+        {
+            string texto = "[" + id + "] " + nome;
+            if (!ativa)
+            {
+                texto = texto + " (desativada)";
+            }
+            if (descricao != "")
+            {
+                texto = texto + " - " + descricao;
+            }
+            return texto;
+        }
     }
 }

@@ -1,6 +1,11 @@
-namespace Helpdesk.Classes;
+using System;
 
-public class HelpdeskException : Exception
+namespace Helpdesk.Classes
 {
-    public HelpdeskException(string mensagem) : base(mensagem) { }
+    public class HelpdeskException : Exception
+    {
+        public HelpdeskException(string mensagem) : base(mensagem)
+        {
+        }
+    }
 }

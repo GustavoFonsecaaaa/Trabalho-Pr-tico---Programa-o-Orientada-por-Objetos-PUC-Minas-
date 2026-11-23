@@ -1,67 +1,96 @@
-namespace Helpdesk.Classes;
-
-public class Tecnico : Pessoa
+namespace Helpdesk.Classes
 {
-    public const int LimiteMinimo = 1;
-    public const int LimiteMaximo = 10;
-
-    private string _especialidade = string.Empty;
-    private int _limiteDeChamados;
-    private int _chamadosEmAtendimento;
-
-    public string Especialidade
+    public class Tecnico : Pessoa
     {
-        get => _especialidade;
-        set
+        private string especialidade = "";
+        private int limiteDeChamados;
+        private int chamadosEmAtendimento = 0;
+
+        public Tecnico(int id, string nome, string email, string especialidade, int limiteDeChamados) : base(id, nome, email)
         {
-            string valor = (value ?? string.Empty).Trim();
-            if (valor.Length < 3 || valor.Length > 50)
-                throw new ValidacaoException("Especialidade", "deve ter entre 3 e 50 caracteres.");
-            _especialidade = valor;
+            Especialidade = especialidade;
+            LimiteDeChamados = limiteDeChamados;
+        }
+
+        public string Especialidade
+        {
+            get { return especialidade; }
+            set
+            {
+                if (value == null)
+                {
+                    value = "";
+                }
+                value = value.Trim();
+
+                if (value.Length < 3 || value.Length > 50)
+                {
+                    throw new ValidacaoException("Especialidade", "deve ter entre 3 e 50 caracteres.");
+                }
+
+                especialidade = value;
+            }
+        }
+
+        public int LimiteDeChamados
+        {
+            get { return limiteDeChamados; }
+            set
+            {
+                if (value < 1 || value > 10)
+                {
+                    throw new ValidacaoException("Limite de chamados", "deve estar entre 1 e 10.");
+                }
+
+                if (value < chamadosEmAtendimento)
+                {
+                    throw new ValidacaoException("Limite de chamados", "nao pode ser menor que a quantidade de chamados em atendimento.");
+                }
+
+                limiteDeChamados = value;
+            }
+        }
+
+        public int ChamadosEmAtendimento
+        {
+            get { return chamadosEmAtendimento; }
+        }
+
+        public bool PodeAtender()
+        {
+            if (chamadosEmAtendimento < limiteDeChamados)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void AssumirChamado()
+        {
+            if (!PodeAtender())
+            {
+                throw new LimiteDeChamadosExcedidoException(Nome, limiteDeChamados);
+            }
+            chamadosEmAtendimento = chamadosEmAtendimento + 1;
+        }
+
+        public void LiberarChamado()
+        {
+            if (chamadosEmAtendimento == 0)
+            {
+                throw new HelpdeskException("O tecnico " + Nome + " nao tem chamados em atendimento.");
+            }
+            chamadosEmAtendimento = chamadosEmAtendimento - 1;
+        }
+
+        public override string Papel()
+        {
+            return "Tecnico";
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + " - " + especialidade + " - Em atendimento: " + chamadosEmAtendimento + "/" + limiteDeChamados;
         }
     }
-
-    public int LimiteDeChamados
-    {
-        get => _limiteDeChamados;
-        set
-        {
-            if (value < LimiteMinimo || value > LimiteMaximo)
-                throw new ValidacaoException("Limite de chamados", $"deve estar entre {LimiteMinimo} e {LimiteMaximo}.");
-            if (value < _chamadosEmAtendimento)
-                throw new ValidacaoException("Limite de chamados",
-                    $"o tecnico ja atende {_chamadosEmAtendimento} chamado(s); o limite nao pode ser menor que isso.");
-            _limiteDeChamados = value;
-        }
-    }
-
-    public int ChamadosEmAtendimento => _chamadosEmAtendimento;
-
-    public Tecnico(int id, string nome, string email, string especialidade, int limiteDeChamados = 3)
-        : base(id, nome, email)
-    {
-        Especialidade = especialidade;
-        LimiteDeChamados = limiteDeChamados;
-    }
-
-    public bool PodeAtender() => _chamadosEmAtendimento < _limiteDeChamados;
-
-    public void AssumirChamado()
-    {
-        if (!PodeAtender())
-            throw new LimiteDeChamadosExcedidoException(Nome, _limiteDeChamados);
-        _chamadosEmAtendimento++;
-    }
-
-    public void LiberarChamado()
-    {
-        if (_chamadosEmAtendimento == 0)
-            throw new HelpdeskException($"O tecnico {Nome} nao tem chamados em atendimento para liberar.");
-        _chamadosEmAtendimento--;
-    }
-
-    public override string Papel() => "Tecnico";
-
-    public override string ToString() =>
-        $"{base.ToString()} - {Especialidade} - Em atendimento: {_chamadosEmAtendimento}/{_limiteDeChamados}";
 }

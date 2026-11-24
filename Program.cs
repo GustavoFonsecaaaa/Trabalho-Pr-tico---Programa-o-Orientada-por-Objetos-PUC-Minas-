@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Helpdesk.Classes;
 
 namespace Helpdesk
@@ -13,13 +13,13 @@ namespace Helpdesk
             {
                 Console.WriteLine("Central de chamados HelpDesk");
                 Console.WriteLine("1 - Cadastrar Solicitante");
-                Console.WriteLine("2 - Cadastrar Tecnico");
+                Console.WriteLine("2 - Cadastrar Técnico");
                 Console.WriteLine("3 - Cadastrar Categoria");
-                Console.WriteLine("4 - Listar Solicitantes, Tecnicos e Categorias");
+                Console.WriteLine("4 - Listar Solicitantes, Técnicos e Categorias");
                 Console.WriteLine("5 - Abrir Chamado");
-                Console.WriteLine("6 - Atribuir Tecnico a um Chamado");
-                Console.WriteLine("7 - Alterar Situacao de um Chamado");
-                Console.WriteLine("8 - Consultar Historico e Chamados Vencidos");
+                Console.WriteLine("6 - Atribuir Técnico a um Chamado");
+                Console.WriteLine("7 - Alterar Situação de um Chamado");
+                Console.WriteLine("8 - Consultar Histórico e Chamados Vencidos");
                 Console.WriteLine("0 - Sair");
 
                 try
@@ -66,12 +66,12 @@ namespace Helpdesk
                     }
                     else
                     {
-                        Console.WriteLine("Opcao invalida. Escolha um numero de 0 a 8.");
+                        Console.WriteLine("Opção inválida. Escolha um número de 0 a 8.");
                     }
                 }
                 catch (ValidacaoException ex)
                 {
-                    Console.WriteLine("Erro de validacao: " + ex.Message);
+                    Console.WriteLine("Erro de validação: " + ex.Message);
                 }
                 catch (LimiteDeChamadosExcedidoException ex)
                 {
@@ -98,7 +98,7 @@ namespace Helpdesk
             while (true)
             {
                 Console.Write(mensagem);
-                string? entrada = Console.ReadLine();
+                string? entrada = Console.ReadLine();       //o interrrogacao e so para nao ficar sublinhado de amarelo
                 int valor;
 
                 if (int.TryParse(entrada, out valor))
@@ -107,7 +107,7 @@ namespace Helpdesk
                 }
                 else
                 {
-                    Console.WriteLine("Entrada invalida. Digite um numero inteiro.");
+                    Console.WriteLine("Entrada inválida. Digite um número inteiro.");
                 }
             }
         }
@@ -125,7 +125,7 @@ namespace Helpdesk
                 }
                 else
                 {
-                    Console.WriteLine("Entrada invalida. O texto nao pode estar vazio.");
+                    Console.WriteLine("Entrada inválida. O texto não pode estar vazio.");
                 }
             }
         }
